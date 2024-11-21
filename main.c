@@ -1,39 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main (){
-void imprime_histograma(int *vendas[], int num_categorias) {
-    for (int i = 0; i < num_categorias; i++) {
-        printf("%d ", *(vendas[i]));
-        for (int j = 0; j < *(vendas[i]); j++) {
-            printf("*");
+void preenche_histograma(char *h[], int valor, int categoria){
+    for(int i=0; i<valor; i++){
+        h[categoria][i]= '*';
+    }
+}
+void imprime_histograma(char *h[], int valores[], int categorias){
+    if(categorias==0){
+        printf("vazio");
+        return;
+    }
+    for(int i=0; i<categorias; i++){
+        printf("%d ", valores[i]);
+        for(int j=0; j<valores[i]; j++){
+            printf("%c", h[i][j]);
         }
         printf("\n");
     }
+
 }
 
-int main() {
-    int num_categorias;
-
-    printf("Digite o número de categorias: ");
-    scanf("%d", &num_categorias);
-
-    int **vendas = (int**)malloc(num_categorias * sizeof(int*));
-
-    for (int i = 0; i < num_categorias; i++) {
-        vendas[i] = (int*)malloc(sizeof(int));
-        printf("Digite a quantidade de vendas da categoria %d: ", i+1);
-        scanf("%d", vendas[i]);
+int main(){
+  int categorias;
+  scanf("%d", &categorias);
+  
+  int valores[categorias];
+  char* histograma[categorias];
+  for(int i=0;i<categorias;i++){
+    scanf("%d",&valores[i]);
+    if(valores[i]==0){
+      histograma[i]=NULL;  
+    }else{
+        histograma[i]= (char*)malloc(valores[i]*sizeof(char));
+        preenche_histograma(histograma, valores[i], i);
     }
+    
+  }
+   imprime_histograma(histograma,valores,categorias);
 
-    imprime_histograma(vendas, num_categorias);
-
-    for (int i = 0; i < num_categorias; i++) {
-        free(vendas[i]);
-    }
-    free(vendas);
-    printf("Nao implementado ainda...");
-
+   for(int i=0; i<categorias;i++){
+    free(histograma[i]);
+   }
     return 0;
-}
 }
