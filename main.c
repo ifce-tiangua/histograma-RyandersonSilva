@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int main (){
 void imprime_histograma(int *vendas[], int num_categorias) {
     for (int i = 0; i < num_categorias; i++) {
         printf("%d ", *(vendas[i]));
@@ -31,6 +32,8 @@ int main() {
         free(vendas[i]);
     }
     free(vendas);
+    printf("Nao implementado ainda...");
 
     return 0;
+}
 }
